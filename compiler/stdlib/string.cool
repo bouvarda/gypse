@@ -1,0 +1,8 @@
+
+class String() {
+    def length(): Int = syscall;
+
+    def substring(a: Int, b: Int): String = syscall;
+
+    def equals(other: String): Bool = syscall;
+}

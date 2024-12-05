@@ -1,0 +1,9 @@
+
+class RGB(var r: Int, var g: Int, var b: Int) {
+    def to_int(): Int = {
+        var rmask: Int = (r & 255) << 16;
+        var gmask: Int = (g & 255) << 8;
+        var bmask: Int = b & 255;
+        rmask | gmask | bmask
+    };
+}

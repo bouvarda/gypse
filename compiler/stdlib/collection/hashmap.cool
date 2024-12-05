@@ -1,0 +1,27 @@
+import std.collection.List;
+import std.collection.Tuple;
+
+class HashMap() {
+    var tuples: List = null;
+    {
+        tuples = new List();
+    };
+
+    def put(key: String, value: Any): Unit = {
+        tuples.push(new Tuple(key, value));
+    };
+
+    def get(key: String): Any = {
+        var it: ListIterator = tuples.iterator();
+        var result: Any = null;
+        while ((result == null) && it.has_next()) {
+            var next: Tuple = it.next();
+            if (key.equals(next.x)) {
+                result = next.y;
+            };
+        };
+        result
+    };
+
+    def len(): Int = tuples.length;
+}

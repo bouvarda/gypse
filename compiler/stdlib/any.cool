@@ -1,0 +1,14 @@
+
+class Any() {
+    // IO methods
+    def out_string(s: String): Unit = syscall;
+    def out_int(s: String): Unit = syscall;
+    def out_float(f: Float, digits: Int): Unit = syscall;
+    def out_nl(): Unit = syscall;
+    def in_string(): String = syscall;
+
+    // System methods
+    def abort(msg: String): Unit = syscall;
+
+    def breakpoint(): Unit = syscall;
+}

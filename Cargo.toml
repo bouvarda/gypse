@@ -1,0 +1,1 @@
+workspace = { members = [ "common", "compiler", "integration_tests","virtualmachine"] }

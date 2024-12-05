@@ -1,0 +1,54 @@
+
+class ListItem(var value: Any, var next: Any) {
+    def set_next(item: ListItem): Unit = {
+        next = item;
+    };
+}
+
+class ListIterator(var element: ListItem) {
+    def has_next(): Bool = {
+        element != null
+    };
+    def next(): Any = {
+        var value: Any = element.value;
+        element = element.next;
+        value
+    };
+}
+
+class List() {
+    var head: ListItem = null;
+    var tail: ListItem = null;
+    var length: Int = 0;
+
+    def len(): Int = this.length;
+
+    def push(value: Any): Unit = {
+        var item: ListItem = new ListItem(value, null);
+        if (head == null) {
+           head = item;
+           tail = item;
+        } else {
+            tail.set_next(item);
+            tail = item;
+        };
+        length = length + 1;
+    };
+
+    def get(index: Int): Any = {
+        if (index >= length) {
+            abort("Index out of bounds");
+        };
+        var i: Int = 0;
+        var cur: ListItem = head;
+        while (i < index) {
+            cur = cur.next;
+            i = i + 1;
+        };
+        cur.value
+    };
+
+    def iterator(): ListIterator = {
+        new ListIterator(head)
+    };
+}

@@ -1,0 +1,8 @@
+
+class Array(var length: Int) {
+    var buf: Any = alloc(length);
+    private def alloc(size: Int): Any = syscall;
+
+    def get(i: Int): Any = syscall;
+    def put(i: Int, value: Any): Unit = syscall;
+}
