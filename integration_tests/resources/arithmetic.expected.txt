@@ -1,0 +1,9 @@
+42
+Between 11 and 50
+'a' is valid
+-1
+0.02
+-0.0100
+0.314
+123.5
+f is negative

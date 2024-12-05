@@ -1,0 +1,20 @@
+import std.collection.HashMap;
+
+class Main() {
+    {
+        var colors: HashMap = new HashMap();
+        colors.put("red", 42);
+        colors.put("green", 56);
+        colors.put("blue", 12);
+
+        out_int(colors.len());
+        out_nl();
+        out_int(colors.get("green"));
+        out_nl();
+        out_int(colors.get("red"));
+        out_nl();
+        out_int(colors.get("blue"));
+        out_nl();
+        out_int(colors.get("yellow"));
+    };
+}

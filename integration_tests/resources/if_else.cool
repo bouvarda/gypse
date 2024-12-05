@@ -1,0 +1,54 @@
+
+class Main() {
+    {
+        var a: Int = 1;
+        if (a >= 0) {
+          out_string("positive");
+        } else {
+          out_string("negative");
+        };
+
+        out_nl();
+        var b: Int = 116;
+        if (b < 100) {
+            out_string("low");
+        } else {
+            out_string("high");
+        };
+
+        out_nl();
+        if (a == b) {
+            out_string("No/");
+        } else {
+            out_string("Yes/");
+        };
+        if (a != b) {
+            out_string("Yes/");
+        } else {
+            out_string("No/");
+        };
+        if (a > b) {
+            out_string("No/");
+        } else {
+            out_string("Yes/");
+        };
+        if (a < b) {
+            out_string("Yes/");
+        } else {
+            out_string("No/");
+        };
+
+        a = a + 1;
+        if (a == 0) {
+            out_string("No");
+        } else if (a == 1) {
+            out_string("No");
+        } else if (a == 2) {
+            out_string("Yes");
+        } else if (a == 3) {
+            out_string("No");
+        } else {
+            out_string("No");
+        };
+    };
+}

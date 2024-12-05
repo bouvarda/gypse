@@ -1,0 +1,7 @@
+Hello, my name is Alice
+My grade is 7
+Hello, my name is Bob
+My company is ACME
+Bob junior is adult
+Bob senior is retired, he is 82
+Alice junior is not yet graduated, she is 2

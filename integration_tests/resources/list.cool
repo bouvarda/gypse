@@ -1,0 +1,20 @@
+import std.collection.List;
+
+class Main() {
+    {
+        var list: List = new List();
+        list.push(1);
+        list.push(2);
+        list.push(3);
+
+        out_int(list.get(2));
+        out_int(list.get(1));
+        out_int(list.get(0));
+        out_nl();
+
+        var it: ListIterator = list.iterator();
+        while (it.has_next()) {
+            out_int(it.next());
+        }
+    };
+}

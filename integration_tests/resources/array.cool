@@ -1,0 +1,13 @@
+import std.collection.Array;
+
+class Main() {
+    {
+        var array: Array = new Array(5);
+        array.put(0, "first");
+        array.put(1, "second");
+
+        out_string(array.get(0));
+        out_string(" then ");
+        out_string(array.get(1));
+    };
+}

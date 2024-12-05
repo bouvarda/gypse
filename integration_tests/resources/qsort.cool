@@ -1,0 +1,29 @@
+import std.collection.Array;
+import std.utils.ArrayUtils;
+
+class Main() {
+    {
+        var utils: ArrayUtils = new ArrayUtils();
+        var array: Array = new Array(8);
+        var i: Int = 0;
+
+        array.put(0, 30);
+        array.put(1, 20);
+        array.put(2, 50);
+        array.put(3, 40);
+        array.put(4, 10);
+        array.put(5, 1);
+        array.put(6, 10);
+        array.put(7, 7);
+        
+        utils.qsort(array);
+
+        while (i < 8) {
+            out_int(array.get(i));
+            if (i != 7) {
+                out_string(" ");
+            };
+            i = i + 1;
+        };
+    };
+}

@@ -1,0 +1,59 @@
+
+class Person(var name: String, var age: Int) {
+    virtual def hello(): Unit = {
+        out_string("Hello, my name is ");
+        out_string(name);
+        out_nl();
+    };
+    def is_adult(): Bool = age > 18;
+}
+
+class Student(var name: String, var age: Int, var grade: Int) extends Person(name, age) {
+    def hello(): Unit = {
+        super.hello();
+        out_string("My grade is ");
+        out_int(grade);
+        out_nl();
+    };
+    def is_graduated(): Bool = grade > 0;
+}
+
+class Worker(var name: String, var age: Int, var company: String) extends Person(name, age) {
+    def hello(): Unit = {
+        super.hello();
+        out_string("My company is ");
+        out_string(company);
+        out_nl();
+    };
+    def is_retired(): Bool = is_adult() && (company == null) && (age > 64);
+}
+
+class Main() {
+    {
+        // polymorphism (declared as Person)
+        var alice: Person = new Student("Alice", 23, 7);
+        var bob: Person = new Worker("Bob", 37, "ACME");
+
+        // specialized references
+        var bob_senior: Worker = new Worker("Bob senior", 82, null);
+        var alice_junior: Student = new Student("Alice junior", 2, 0);
+
+        alice.hello();
+        bob.hello();
+
+        if (bob.is_adult()) {
+            out_string("Bob junior is adult");
+            out_nl();
+        };
+        if (bob_senior.is_retired()) {
+            out_string("Bob senior is retired, he is ");
+            out_int(bob_senior.age);
+            out_nl();
+        };
+        if (!alice_junior.is_graduated()) {
+            out_string("Alice junior is not yet graduated, she is ");
+            out_int(alice_junior.age);
+            out_nl();
+        };
+    };
+}

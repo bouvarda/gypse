@@ -1,0 +1,23 @@
+import std.graphics.Canvas;
+import std.graphics.RGB;
+
+class Main() {
+    {
+        var w: Int = 800;
+        var h: Int = 600;
+        var c: Canvas = new Canvas(w, h);
+        var seed: Int = 1234;
+        var i: Int = 0;
+        var color: RGB = new RGB(0, 255, 0);
+
+        while (i < 320) {
+            var j: Int = 0;
+            while (j < 200) {
+                c.put_pixel(i, j, color);
+                j = j + 1;
+            };
+            i = i + 1;
+        };
+        c.run();
+    };
+}

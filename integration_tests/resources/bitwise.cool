@@ -1,0 +1,24 @@
+
+class Main() {
+    {
+        var a: Int = 5; // 101
+        var b: Int = 2; // 010
+        var c: Int = 0; // 000
+
+        out_int(a ^ b);
+        out_nl();
+        out_int((b >> 1) & 1);
+        out_nl();
+
+        c = c | (1 << 4);
+        out_int(c);
+        out_nl();
+        
+        c = (c >> 4) & 3;
+        out_int(c | 2);
+        out_nl();
+
+        out_int((!a) & 7);
+        out_nl();
+    };
+}

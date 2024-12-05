@@ -1,0 +1,11 @@
+
+class Main() {
+    {
+      var str: String = "Hello, world";
+      out_string(str);
+      out_nl();
+      out_int(str.length());
+      out_nl();
+      out_string("Good bye, world")
+    };
+}

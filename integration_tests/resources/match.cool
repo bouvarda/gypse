@@ -1,0 +1,40 @@
+
+class ClassA(var a: Int) {}
+class ClassB(var b1: String, var b2: String) {}
+class ClassC() {}
+
+class Main() {
+    var test_int: Int = 1;
+    var test_string: String = "test";
+    var test_a: ClassA = new ClassA(123);
+    var test_b: ClassB = new ClassB("un", "deux");
+    var test_c: ClassC = new ClassC();
+
+    def print(obj: Any): Unit = {
+        obj match {
+            //case i: Int => out_int(i)
+            //case s: String => out_string(s)
+            case a: ClassA => {
+                out_string("A ");
+                out_int(a.a);
+            }
+            case b: ClassB => {
+                out_string("B ");
+                out_string(b.b1);
+                out_string(" ");
+                out_string(b.b2);
+            }
+            case c: ClassC => out_string("C")
+            case other: Any => out_string("Not printable")
+        };
+        out_nl();
+    };
+
+    {
+        //print(test_int);
+        //print(test_string);
+        print(test_a);
+        print(test_b);
+        print(test_c);
+    };
+}

@@ -1,0 +1,13 @@
+
+class Main() {
+    {
+      var a: Int = 10;
+      var b: Int = a * 2; // 20
+      var c: Int = a + b + 2; // 32
+      var d: Int = {
+          var e: Int = c;
+          e * 10
+      };
+      out_int(d); // 320
+    };
+}

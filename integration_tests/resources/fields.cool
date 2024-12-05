@@ -1,0 +1,15 @@
+
+class Main() extends Any() {
+
+    var a: Int = 1;
+    var b: String = "test";
+
+    def print(): Unit = {
+        out_int(a);
+        out_string(b);
+    };
+
+    {
+        print();
+    };
+}

@@ -1,0 +1,49 @@
+import std.graphics.Canvas;
+import std.graphics.RGB;
+
+class Main() {
+    {
+        draw_mandelbrot(50, 500, 500);
+    };
+
+    def draw_mandelbrot(max_iteration: Int, width: Int, height: Int): Unit = {
+        var xmin: Float = -2.0;
+        var xmax: Float = 0.5;
+        var ymin: Float = -1.25;
+        var ymax: Float = 1.25;
+        var coef_x: Float = (xmax - xmin) / (width + xmin);
+        var coef_y: Float = (ymin - ymax) / (height + ymax);
+
+        var c: Canvas = {
+            breakpoint();
+            new Canvas(width, height)
+        };
+        var x: Int = 0;
+        var y: Int = 0;
+
+        while (y < height) {
+            while (x < width) {
+                var cx: Float = x * coef_x;
+                var cy: Float = y * coef_y;
+                var xn: Float = 0.0;
+                var yn: Float = 0.0;
+                var n: Float = 0.0;
+                while ((((xn*xn) + (yn*yn)) < 4) && (n < max_iteration)) {
+                    var tmp_x: Float = xn;
+                    var tmp_y: Float = yn;
+                    xn = (tmp_x*tmp_x) - (tmp_y*tmp_y) + cx;
+                    yn = (2 * tmp_x * tmp_y) + cy;
+                    n = n + 1;
+                };
+                if (n == max_iteration) {
+                    c.put_pixel(x, y, new RGB(0, 0, 0));
+                } else {
+                    c.put_pixel(x, y, new RGB(255, 255, 255));
+                };
+                x = x + 1;
+            };
+            y = y + 1;
+        };
+        c.run();
+    };
+}

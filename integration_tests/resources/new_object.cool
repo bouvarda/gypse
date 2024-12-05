@@ -1,0 +1,22 @@
+import std.collection.Array;
+
+class MyObject(var a: Int, var b: Int) {
+}
+
+class Main() {
+    {
+        var obj: MyObject = new MyObject(777, 888);
+        out_int(obj.a);
+        out_nl();
+        out_int(obj.b);
+        out_nl();
+
+        var array: Array = new Array(10);
+        out_int(array.length);
+
+        var i: Int = 0;
+        while (i < array.length) {
+            i = i + 1;
+        }
+    };
+}

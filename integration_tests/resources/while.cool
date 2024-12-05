@@ -1,0 +1,10 @@
+
+class Main() {
+    {
+        var i: Int = 0;
+        while (i < 10) {
+            out_int(i);
+            i = i + 1;
+        }
+    };
+}

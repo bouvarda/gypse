@@ -1,0 +1,12 @@
+
+class Main() {
+    {
+      var i: Int = add(1, 2);
+      out_int(i);
+      out_nl();
+    };
+
+    def add(a: Int, b: Int): Int = {
+        a + b
+    };
+}
