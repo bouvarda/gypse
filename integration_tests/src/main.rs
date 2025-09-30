@@ -10,19 +10,33 @@ fn main() {
     env_logger::init();
 
     let test_example = "arithmetic";
-
-    let src_path =
-        Path::new("./integration_tests/resources/").join(format!("{}.cool", test_example));
-    let binary_path = Path::new("./integration_tests/test_results/").join(test_example);
-    let stdlib_path = Path::new("./compiler/stdlib/");
+    
+    // Get the current directory
+    let current_dir = env::current_dir().expect("Failed to get current directory");
+    
+    let src_path = current_dir
+        .join("integration_tests")
+        .join("resources")
+        .join(format!("{}.cool", test_example));
+    
+    // Create test_results directory if it doesn't exist
+    let test_results_dir = current_dir
+        .join("integration_tests")
+        .join("test_results");
+    std::fs::create_dir_all(&test_results_dir)
+        .expect("Failed to create test_results directory");
+        
+    let binary_path = test_results_dir.join(test_example);
+    let stdlib_path = current_dir
+        .join("compiler")
+        .join("stdlib");
 
     compiler::compile(
         src_path.as_path(),
-        stdlib_path,
+        stdlib_path.as_path(),
         binary_path.as_path(),
         false,
-    )
-    .expect("Cannot compile");
+    ).expect(&format!("Cannot compile {}", test_example));
 
     //let flags: u8 = virtualmachine::FLAG_ENABLE_DEBUGGER | virtualmachine::FLAG_ENABLE_TRACE;
     let flags: u8 = 0;
@@ -114,10 +128,15 @@ mod tests {
         let debug_ast = false;
         let debug_trace = false;
 
-        let mut src_path = Path::new("./resources/").join(test_name);
-        src_path.set_extension("cool");
+        let src_path = Path::new("./resources/").join(test_name)
+            .with_extension("cool");
 
-        let binary_path = Path::new("./test_results/").join(test_name);
+        // Create test_results directory if it doesn't exist
+        let test_results_dir = Path::new("./test_results");
+        std::fs::create_dir_all(test_results_dir)
+            .expect("Failed to create test_results directory");
+
+        let binary_path = test_results_dir.join(test_name);
         compiler::compile(
             src_path.as_path(),
             Path::new("../compiler/stdlib/"),
