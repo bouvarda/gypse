@@ -3,7 +3,6 @@
 //!
 use std::env;
 use std::io::stdout;
-use std::path::Path;
 
 fn main() {
     env::set_var("RUST_LOG", "INFO");
