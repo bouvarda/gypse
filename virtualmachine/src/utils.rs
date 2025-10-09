@@ -7,8 +7,7 @@ use crate::process::Process;
 pub enum Interruption {
     ProcessFault,
     ProcessTermination,
-    GraphicsInit(u32, u32),
-    GraphicsUpdate(u32),
+    GraphicsInit(u32, u32, u32),
     KernelPanic,
 }
 

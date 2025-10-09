@@ -100,6 +100,66 @@ impl PhysicalMemory {
         string
     }
 
+    // Read a byte directly from physical memory without virtual address translation
+    pub fn read_u8_physical(&mut self, physical_addr: u32) -> u8 {
+        let page_frame = self.get_page_frame(physical_addr);
+        let page_frame_offset = (physical_addr & 0xFFF) as usize;
+        page_frame[page_frame_offset]
+    }
+
+    // Read a u32 directly from physical memory without virtual address translation
+    pub fn read_u32_physical(&mut self, physical_addr: u32) -> u32 {
+        let page_frame = self.get_page_frame(physical_addr);
+        let page_frame_offset = (physical_addr & 0xFFF) as usize;
+
+        if page_frame_offset + 4 > PAGE_SIZE {
+            // If we're crossing a page boundary, read byte by byte
+            let b1 = self.read_u8_physical(physical_addr);
+            let b2 = self.read_u8_physical(physical_addr + 1);
+            let b3 = self.read_u8_physical(physical_addr + 2);
+            let b4 = self.read_u8_physical(physical_addr + 3);
+            return u32::from_le_bytes([b1, b2, b3, b4]);
+        }
+
+        // Fast path for aligned access within a single page
+        let b1 = page_frame[page_frame_offset];
+        let b2 = page_frame[page_frame_offset + 1];
+        let b3 = page_frame[page_frame_offset + 2];
+        let b4 = page_frame[page_frame_offset + 3];
+        
+        u32::from_le_bytes([b1, b2, b3, b4])
+    }
+
+    // Read multiple u32 values efficiently from a contiguous physical memory region
+    pub fn read_u32_physical_batch(&mut self, physical_addr: u32, count: usize, out: &mut [u32]) {
+        let mut current_addr = physical_addr;
+        let mut out_pos = 0;
+        
+        while out_pos < count {
+            let page_frame = self.get_page_frame(current_addr);
+            let page_frame_offset = (current_addr & 0xFFF) as usize;
+            
+            // Calculate how many u32s we can read from this page
+            let words_till_page_end = (PAGE_SIZE - page_frame_offset) / 4;
+            let words_remaining = count - out_pos;
+            let words_to_read = words_till_page_end.min(words_remaining);
+            
+            // Fast copy for aligned data within the same page
+            for i in 0..words_to_read {
+                let offset = page_frame_offset + (i * 4);
+                out[out_pos + i] = u32::from_le_bytes([
+                    page_frame[offset],
+                    page_frame[offset + 1],
+                    page_frame[offset + 2],
+                    page_frame[offset + 3],
+                ]);
+            }
+            
+            current_addr += (words_to_read * 4) as u32;
+            out_pos += words_to_read;
+        }
+    }
+
     #[allow(dead_code)]  // used in tests
     pub fn write_string(&mut self, process: &mut Process, virtual_addr: u32, string: &str) {
         let mut i = 0;
@@ -184,16 +244,16 @@ impl PhysicalMemory {
         })
     }
 
-    fn get_page_frame(&mut self, physical_addr: u32) -> &mut PhysicalPageFrame {
-        let page_frame_index = (physical_addr >> 12) - 1;
+    pub fn get_page_frame(&mut self, physical_addr: u32) -> &mut PhysicalPageFrame {
+        let page_frame_index = physical_addr >> 12;  // Remove the -1 to prevent underflow
         if page_frame_index >= self.page_frames.len() as u32 {
             panic!("Physical page fault {page_frame_index}");
         }
-        &mut (self.page_frames[page_frame_index as usize])
+        &mut self.page_frames[page_frame_index as usize]
     }
 
     fn alloc_page_frame(&mut self) -> u32 {
-        let page_frame_num = (self.page_frames.len() as u32 + 1u32) << 12;
+        let page_frame_num = (self.page_frames.len() as u32) << 12;
         self.page_frames.push([0; PAGE_SIZE]);
         page_frame_num
     }

@@ -1,4 +1,4 @@
-use common::{OBJECT_HEADER_SIZE, SYSCALL_ABORT, SYSCALL_ARRAY_ALLOC, SYSCALL_ARRAY_GET, SYSCALL_ARRAY_PUT, SYSCALL_BREAKPOINT, SYSCALL_CANVAS_INIT, SYSCALL_CANVAS_UPDATE, SYSCALL_IO_OUT_FLOAT, SYSCALL_IO_OUT_INT, SYSCALL_IO_OUT_NL, SYSCALL_IO_OUT_STRING, SYSCALL_STRING_EQUALS, SYSCALL_STRING_LEN, SYSCALL_SYSTEM_EXIT, SYSCALL_SYSTEM_MALLOC};
+use common::{OBJECT_HEADER_SIZE, SYSCALL_ABORT, SYSCALL_ARRAY_ALLOC, SYSCALL_ARRAY_GET, SYSCALL_ARRAY_PUT, SYSCALL_BREAKPOINT, SYSCALL_CANVAS_INIT, SYSCALL_IO_OUT_FLOAT, SYSCALL_IO_OUT_INT, SYSCALL_IO_OUT_NL, SYSCALL_IO_OUT_STRING, SYSCALL_STRING_EQUALS, SYSCALL_STRING_LEN, SYSCALL_SYSTEM_EXIT, SYSCALL_SYSTEM_MALLOC};
 use crate::memory::PhysicalMemory;
 use crate::process::Process;
 use crate::utils::Interruption;
@@ -138,11 +138,8 @@ pub fn execute_syscall(sb: u32, sp: u32, process: &mut Process, memory: &mut Phy
         SYSCALL_CANVAS_INIT => { // wrapped syscall, 2 args
             let w = memory.read_u32(process, wrapped_first_arg_addr);
             let h = memory.read_u32(process, wrapped_first_arg_addr + 4);
-            Err(Interruption::GraphicsInit(w, h))
-        }
-        SYSCALL_CANVAS_UPDATE => { // wrapped syscall, 1 arg
-            let array_buffer_addr = memory.read_u32(process, wrapped_first_arg_addr + OBJECT_HEADER_SIZE as u32 + 4); // skip array length field
-            Err(Interruption::GraphicsUpdate(array_buffer_addr))
+            let array_buffer_addr = memory.read_u32(process, wrapped_first_arg_addr + 8 + OBJECT_HEADER_SIZE as u32 + 4); // skip array length field
+            Err(Interruption::GraphicsInit(w, h, array_buffer_addr))
         }
 
         _ => {

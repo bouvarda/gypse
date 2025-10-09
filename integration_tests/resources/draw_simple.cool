@@ -18,6 +18,5 @@ class Main() {
             };
             i = i + 1;
         };
-        c.run();
     };
 }

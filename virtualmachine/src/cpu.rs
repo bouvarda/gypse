@@ -67,7 +67,7 @@ impl CPU {
                             process.stop();
                             break;
                         }
-                        Err(Interruption::GraphicsInit(_, _) | Interruption::GraphicsUpdate(_)) => {
+                        Err(Interruption::GraphicsInit(_, _, _)) => {
                             process.suspend();
                             return result;
                         },

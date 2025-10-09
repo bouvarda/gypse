@@ -75,7 +75,6 @@ pub const SYSCALL_IO_OUT_NL: u8 = 20;
 pub const SYSCALL_ABORT: u8 = 21;
 pub const SYSCALL_BREAKPOINT: u8 = 22;
 pub const SYSCALL_CANVAS_INIT: u8 = 23;
-pub const SYSCALL_CANVAS_UPDATE: u8 = 24;
 
 pub fn syscall_number(syscall_name: &str) -> u8 {
     match syscall_name {
@@ -94,7 +93,6 @@ pub fn syscall_number(syscall_name: &str) -> u8 {
         "Any::abort" => SYSCALL_ABORT,
         "Any::breakpoint" => SYSCALL_BREAKPOINT,
         "Canvas::init" => SYSCALL_CANVAS_INIT,
-        "Canvas::update" => SYSCALL_CANVAS_UPDATE,
         _ => panic!("Unsupported syscall {syscall_name}"),
     }
 }

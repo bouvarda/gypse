@@ -14,10 +14,7 @@ class Main() {
         var coef_x: Float = (xmax - xmin) / (width + xmin);
         var coef_y: Float = (ymin - ymax) / (height + ymax);
 
-        var c: Canvas = {
-            breakpoint();
-            new Canvas(width, height)
-        };
+        var c: Canvas = new Canvas(width, height);
         var x: Int = 0;
         var y: Int = 0;
 
@@ -44,6 +41,5 @@ class Main() {
             };
             y = y + 1;
         };
-        c.run();
     };
 }

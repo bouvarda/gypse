@@ -5,21 +5,14 @@ import std.graphics.RGB;
 class Canvas(var width: Int, var height: Int) {
     var buffer: Array = null;
     {
-        init(width, height);
         buffer = new Array(width * height);
+        init(width, height, buffer);
     };
    
-    private def init(w: Int, h: Int): Any = syscall;
-    private def update(): Any = syscall;
+    private def init(w: Int, h: Int, buffer: Array): Any = syscall;
 
     def put_pixel(x: Int, y: Int, color: RGB): Unit = {
         var idx: Int = x + (y*width);
         buffer.put(idx, color.to_int());
-    };
-
-    def run(): Unit = {
-        while (true) {
-            update(buffer);
-        }
     };
 }

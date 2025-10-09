@@ -8,7 +8,7 @@ fn main() {
     env::set_var("RUST_LOG", "INFO");
     env_logger::init();
 
-    let test_example = "arithmetic";
+    let test_example = "draw_simple";
     
     // Get the current directory
     let current_dir = env::current_dir().expect("Failed to get current directory");

@@ -11,7 +11,8 @@ mod cpu;
 mod syscall;
 mod heap;
 mod debugger;
-mod graphics;
+mod graphics_thread;
+mod metrics;
 
 pub const FLAG_ENABLE_DEBUGGER: u8 = 1;
 pub const FLAG_ENABLE_TRACE: u8 = 2;

@@ -129,4 +129,10 @@ impl Process {
         let segment_end = segment_start + size as usize;
         memory.write_slice(self, segment_virtual_addr, &buffer[segment_start..segment_end]);
     }
+
+    // Get the physical address for a virtual address
+    pub fn get_physical_addr(&mut self, virtual_addr: u32) -> Result<u32, Interruption> {
+        self.paging.translate_virtual_to_physical(virtual_addr)
+            .map_err(|_| Interruption::ProcessFault)
+    }
 }
